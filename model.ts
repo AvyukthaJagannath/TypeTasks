@@ -32,7 +32,16 @@ export function filterByStatus(tasks: Task[], status: TaskStatus): Task[] {
   return tasks.filter((task) => task.status === status);
 }
 
-// 6. Custom Extra Operation
+// 6. Custom Extra Operations
 export function deleteTask(tasks: Task[], id: number): Task[] {
   return tasks.filter((task) => task.id !== id);
+}
+
+export function advanceTask(tasks: Task[], id: number): Task[] {
+  return tasks.map((task) => {
+    if (task.id !== id) return task;
+    if (task.status === "todo") return { ...task, status: "in-progress" };
+    if (task.status === "in-progress") return { ...task, status: "done" };
+    return task;
+  });
 }
